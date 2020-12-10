@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Exemptions.cs" />
+    <Content Include="Purchase.cs" />
+    <Content Include="Merchandise.cs" />
+    <Content Include="ImportTax.cs" />
+    <Content Include="SalesTax.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\Interface.csproj" />
+    <Content Include="PurchaseProcessor.cs" />
+    <Content Include="MerchandiseFactory.cs" />
+    <Content Include="InputReader.cs" />
+    <Content Include="LineParser.cs" />
+    <Content Include="ConsoleLog.cs" />
+  </ItemGroup>
+</Project>
