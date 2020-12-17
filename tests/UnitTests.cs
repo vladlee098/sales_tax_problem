@@ -23,16 +23,16 @@ namespace tests
             };
 
             var factory = new MerchandiseFactory();
-            var merchandises = factory.Create(new InputReader(purchaseInput));
+            var purchase = factory.BuildPurchase(new InputReader(purchaseInput));
 
-            Assert.AreEqual( 3, merchandises.Count);
-            Assert.AreEqual( "book", merchandises[0].Name );
-            Assert.AreEqual( "music CD", merchandises[1].Name );
-            Assert.AreEqual( "chocolate bar", merchandises[2].Name );
+            Assert.AreEqual( 3, purchase.GetGoods().Count);
+            Assert.AreEqual( "book", purchase.GetGoods()[0].Name );
+            Assert.AreEqual( "music CD", purchase.GetGoods()[1].Name );
+            Assert.AreEqual( "chocolate bar", purchase.GetGoods()[2].Name );
 
-            Assert.AreEqual( 12.49, merchandises[0].Price );
-            Assert.AreEqual( 14.99, merchandises[1].Price );
-            Assert.AreEqual( 0.85, merchandises[2].Price );
+            Assert.AreEqual( 12.49, purchase.GetGoods()[0].Price );
+            Assert.AreEqual( 14.99, purchase.GetGoods()[1].Price );
+            Assert.AreEqual( 0.85, purchase.GetGoods()[2].Price );
         }
 
         [Test]
@@ -45,17 +45,17 @@ namespace tests
             };
 
             var factory = new MerchandiseFactory();
-            var merchandises = factory.Create(new InputReader(purchaseInput));
+            var purchase = factory.BuildPurchase(new InputReader(purchaseInput));
 
-            Assert.AreEqual( 2, merchandises.Count);
-            Assert.AreEqual( "imported box of chocolates", merchandises[0].Name );
-            Assert.AreEqual( "imported bottle of perfume", merchandises[1].Name );
+            Assert.AreEqual( 2, purchase.GetGoods().Count);
+            Assert.AreEqual( "imported box of chocolates", purchase.GetGoods()[0].Name );
+            Assert.AreEqual( "imported bottle of perfume", purchase.GetGoods()[1].Name );
 
-            Assert.AreEqual( 10.00, merchandises[0].Price );
-            Assert.AreEqual( 47.50, merchandises[1].Price );
+            Assert.AreEqual( 10.00, purchase.GetGoods()[0].Price );
+            Assert.AreEqual( 47.50, purchase.GetGoods()[1].Price );
 
-            Assert.AreEqual( true, merchandises[0].Import );
-            Assert.AreEqual( true, merchandises[1].Import );
+            Assert.AreEqual( true, purchase.GetGoods()[0].Import );
+            Assert.AreEqual( true, purchase.GetGoods()[1].Import );
         }
 
         [Test]
@@ -68,13 +68,7 @@ namespace tests
             };
 
             var factory = new MerchandiseFactory();
-            var merchandises = factory.Create(new InputReader(purchaseInput));
-            var availableTaxes = new List<ITax>
-            {
-                new SalesTax( new Exemptions() ),
-                new ImportTax()
-            };
-
+            var purchase = factory.BuildPurchase(new InputReader(purchaseInput));
             
             var output = new StringBuilder();
             var saved = Console.Out;
@@ -84,8 +78,8 @@ namespace tests
                 {
                     Console.SetOut(writer);
 
-                    var processor = new PurchaseProcessor(new Purchase(merchandises), availableTaxes);
-                    processor.PrintReceipt();
+                    var processor = new PurchaseProcessor( new PurchaseTaxes() );
+                    processor.PrintReceipt(purchase);
 
                     string expected = "Sales Taxes: 7.65 Total: 65.15";
                     var text = output.ToString();
@@ -110,13 +104,7 @@ namespace tests
             };
 
             var factory = new MerchandiseFactory();
-            var merchandises = factory.Create(new InputReader(purchaseInput));
-            var availableTaxes = new List<ITax>
-            {
-                new SalesTax( new Exemptions() ),
-                new ImportTax()
-            };
-
+            var purchase = factory.BuildPurchase(new InputReader(purchaseInput));
             
             var output = new StringBuilder();
             var saved = Console.Out;
@@ -126,8 +114,8 @@ namespace tests
                 {
                     Console.SetOut(writer);
 
-                    var processor = new PurchaseProcessor(new Purchase(merchandises), availableTaxes);
-                    processor.PrintReceipt();
+                    var processor = new PurchaseProcessor( new PurchaseTaxes() );
+                    processor.PrintReceipt(purchase);
 
                     string expected = "Sales Taxes: 6.70 Total: 74.68";
                     var text = output.ToString();

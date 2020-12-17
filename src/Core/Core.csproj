@@ -17,5 +17,6 @@
     <Content Include="InputReader.cs" />
     <Content Include="LineParser.cs" />
     <Content Include="ConsoleLog.cs" />
+    <Content Include="PurchaseTaxes.cs" />
   </ItemGroup>
 </Project>

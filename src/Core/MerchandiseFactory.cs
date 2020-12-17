@@ -3,7 +3,7 @@ using src.Interface;
 
 namespace src.Core
 {
-    public class MerchandiseFactory
+    public class MerchandiseFactory : IMerchandiseFactory
     {
 
         Dictionary< string, MerchandiseTypes> _warehouse = new Dictionary< string, MerchandiseTypes>()
@@ -29,21 +29,25 @@ namespace src.Core
             return MerchandiseTypes.AllGoods;
         }
 
+        public MerchandiseFactory()
+        {
+        }
 
-        public List<IMerchandise> Create( IInputReader inputReader )
+        public virtual IPurchase BuildPurchase(IInputReader inputReader)
         {
             // "1 book at 12.49"
             // "1 imported bottle of perfume at 27.99 1"
             
-            var purchase = new List<IMerchandise>();
+            var merchandises = new List<IMerchandise>();
             var parsers = inputReader.GetParsers();
             foreach( ILineParser parser in parsers)
             {
                 var mecrhType = MerchandiseTypeByName( parser.GetName() );
                 var merchandise = new Merchandise(mecrhType, parser.GetFullName(), parser.GetAmount(), parser.GetPrice(), parser.IsImport() );
-                purchase.Add(merchandise);
+                merchandises.Add(merchandise);
             }
-            return purchase;
+            
+            return new Purchase(merchandises);
         }
     }
 }

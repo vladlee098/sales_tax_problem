@@ -12,5 +12,7 @@
     <Content Include="IPurchaseProcessor.cs" />
     <Content Include="IInputReader.cs" />
     <Content Include="ILineParser.cs" />
+    <Content Include="IMerchandiseFactory.cs" />
+    <Content Include="IPurchaseTaxes.cs" />
   </ItemGroup>
 </Project>

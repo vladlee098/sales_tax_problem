@@ -1,7 +1,7 @@
-namespace Interface
+namespace src.Interface
 {
     public interface IPurchaseProcessor
     {
-        void PrintReceipt();
+        void PrintReceipt(IPurchase purchase);
     }
 }

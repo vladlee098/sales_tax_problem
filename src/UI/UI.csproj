@@ -10,5 +10,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Interface\Interface.csproj" />
+    <Content Include="Application.cs" />
+    <Content Include="PurchaseSelector.cs" />
+    <Content Include="ContainerConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.1.0" />
+    <Content Include="IApplication.cs" />
   </ItemGroup>
 </Project>

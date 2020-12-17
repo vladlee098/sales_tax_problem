@@ -4,20 +4,18 @@ using src.Interface;
 
 namespace src.Core
 {
-    public class PurchaseProcessor
+    public class PurchaseProcessor : IPurchaseProcessor
     {
-        readonly IPurchase _purchase;
-        readonly List<ITax> _taxes;
+        readonly IPurchaseTaxes _taxes;
 
-        public PurchaseProcessor( IPurchase purchase, List<ITax> taxes )
+        public PurchaseProcessor( IPurchaseTaxes taxes )
         {
-            _purchase = purchase;
             _taxes = taxes;
         }
 
-        public virtual void PrintReceipt()
+        public void PrintReceipt(IPurchase purchase )
         {
-            var goods = _purchase.GetGoods();
+            var goods = purchase.GetGoods();
             if ( goods is null || goods.Count == 0)
             {
                 return;
@@ -28,7 +26,7 @@ namespace src.Core
             foreach( var merchandise in goods )
             {
                 decimal merchTax = 0M;
-                foreach( var tax in _taxes)
+                foreach( var tax in _taxes.CurrentTaxes )
                 {
                     merchTax += tax.Estimate(merchandise);
                 }
